@@ -2,7 +2,7 @@
 
 
 def uppercase(str):
-    for c int str:
+    for c in str:
         char = ird(c)
         if char >= 97 and char <= 122:
             char -= 32
