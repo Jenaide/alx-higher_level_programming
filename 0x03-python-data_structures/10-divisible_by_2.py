@@ -4,4 +4,10 @@ def divisible_by_2(my_list=[]):
     a function that finds all multiple
     of 2 in a list.
     """
-    return [x for x in my_list if x % 2 == 0]
+    new_list = []
+    for i in range(len(my_list)):
+        if my_list[i] % 2 == 0:
+            new_list.append(True)
+        else:
+            new_list.append(False)
+    return new_list
