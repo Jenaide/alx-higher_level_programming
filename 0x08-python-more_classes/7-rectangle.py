@@ -4,7 +4,6 @@ A class Rectangle that defines a rectangle
 """
 
 
-
 class Rectangle:
     """class Rectangle that defines a rectangle figure
     Attributes:
@@ -118,11 +117,11 @@ class Rectangle:
         return self.__width * self.__height
 
     def perimeter(self):
-            The perimeter of the rectangle
-        return 2 * (self.__width + self.__height)        """
-        if self.__width == 0 or self.__height == 0:
-            return 0
         """
         Calculate the perimeter of the rectangle
         Returns:
-
+            The perimeter of the rectangle
+        """
+        if self.__width == 0 or self.__height == 0:
+            return 0
+        return 2 * (self.__width + self.__height)
