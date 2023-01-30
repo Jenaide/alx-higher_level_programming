@@ -1,12 +1,17 @@
 #!/usr/bin/python3
-"""A class Rectangle that defines a rectangle"""
+"""
+A class Rectangle that defines a rectangle
+"""
+
 
 
 class Rectangle:
     """class Rectangle that defines a rectangle figure
     Attributes:
-        empty
+        number_of_instances (int): Number of created rectangles
     """
+    number_of_instances = 0
+    print_symbol = '#'
 
     def __init__(self, width=0, height=0):
         """
@@ -14,11 +19,43 @@ class Rectangle:
         Attributes:
             width (int, optional): The width of the rectangle
             height (int, optional): The height of the rectangle
-        self.width = width
-        self.height = height
         """
         self.__height = height
         self.__width = width
+        Rectangle.number_of_instances += 1
+
+    def __str__(self):
+        """
+        str method to print rectangle
+        Returns:
+            string : The string with # rectangle
+        """
+        string = ""
+        if self.__width == 0 or self.__height == 0:
+            return string
+
+        for i in range(self.__height):
+            for j in range(self.__width):
+                string += str(self.print_symbol)
+            if i < self.__height - 1:
+                string += '\n'
+        return string
+
+    def __repr__(self):
+        """
+        provides __repr__ method for object rectangle
+        Returns:+
+            string (str): string to get
+        """
+        return "Rectangle(" + str(self.__width) + ", " + str(self.__height) +\
+            ")"
+
+    def __del__(self):
+        """
+        delete method for rectangle
+        """
+        print("Bye rectangle...")
+        Rectangle.number_of_instances -= 1
 
     @property
     def height(self):
@@ -81,11 +118,11 @@ class Rectangle:
         return self.__width * self.__height
 
     def perimeter(self):
+            The perimeter of the rectangle
+        return 2 * (self.__width + self.__height)        """
+        if self.__width == 0 or self.__height == 0:
+            return 0
         """
         Calculate the perimeter of the rectangle
         Returns:
-            The perimeter of the rectangle
-        """
-        if self.__width == 0 or self.__height == 0:
-            return 0
-        return 2 * (self.__width + self.__height)
+

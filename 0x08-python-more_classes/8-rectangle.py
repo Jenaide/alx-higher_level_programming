@@ -1,12 +1,16 @@
 #!/usr/bin/python3
-"""A class Rectangle that defines a rectangle"""
+"""
+A class rectangle that defines a rectangle
+"""
 
 
 class Rectangle:
     """class Rectangle that defines a rectangle figure
     Attributes:
-        empty
+        number_of_instances (int): Number of created rectangles
     """
+    number_of_instances = 0
+    print_symbol = '#'
 
     def __init__(self, width=0, height=0):
         """
@@ -14,11 +18,43 @@ class Rectangle:
         Attributes:
             width (int, optional): The width of the rectangle
             height (int, optional): The height of the rectangle
-        self.width = width
-        self.height = height
         """
         self.__height = height
         self.__width = width
+        Rectangle.number_of_instances += 1
+
+    def __str__(self):
+        """
+        str method to print rectangle
+        Returns:
+            string : The string with # rectangle
+        """
+        string = ""
+        if self.__width == 0 or self.__height == 0:
+            return string
+
+        for i in range(self.__height):
+            for j in range(self.__width):
+                string += str(self.print_symbol)
+            if i < self.__height - 1:
+                string += '\n'
+        return string
+
+    def __repr__(self):
+        """
+        provides __repr__ method for object rectangle
+        Returns:+
+            string (str): string to get
+        """
+        return "Rectangle(" + str(self.__width) + ", " + str(self.__height) +\
+            ")"
+
+    def __del__(self):
+        """
+        delete method for rectangle
+        """
+        print("Bye rectangle...")
+        Rectangle.number_of_instances -= 1
 
     @property
     def height(self):
@@ -89,3 +125,24 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return 0
         return 2 * (self.__width + self.__height)
+
+    @staticmethod
+    def bigger_or_equal(rect_1, rect_2):
+        """
+        Method to compare 2 rectangles
+        Attributes:
+            rect_1 (class Rectangle): Rectangle 1 must be an instance rectangle
+            rect_2 (class Rectangle): Rectangle 2 must be an instance rectangle
+        Raises:
+            TypeError: If rect_1 or rect_2 aren't instance of rectangle
+        Returns:
+            The biggest rectangle
+        """
+        if type(rect_1) is not Rectangle:
+            raise TypeError("rect_1 must be an instance of Rectangle")
+        if type(rect_2) is not Rectangle:
+            raise TypeError("rect_2 must be an instance of Rectangle")
+        if rect_2.area() > rect_1.area():
+            return rect_2
+        else:
+            return rect_1
