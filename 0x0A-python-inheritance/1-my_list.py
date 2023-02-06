@@ -1,16 +1,17 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 """
-A class that that inherits from list.
+@author: Jenaide Sibolie
 """
 
 
 class MyList(list):
     """
-    class MyList inherits from list.
+     class MyList that inherits from list
     """
     def print_sorted(self):
         """
-        Public instance method that prints sorted list.
+        Public instance method that prints sorted list
         """
         list_copy = self[:]
         list_copy.sort()
