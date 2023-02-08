@@ -5,24 +5,23 @@
 """
 
 
-
 class BaseGeometry():
     """
-    an Empty class
+    An empty class
     """
     pass
 
     def area(self):
         """
-        public instance method that calculates
-        the area and Raises an exception if area
-        is not implemented.
+        Public instance method that calculates the area
+        Raises:
+            Exception if area is not imlemented
         """
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
         """
-        Public instance method that validates int input.
+        Public instance method that validates integer input
         """
         if type(value) is not int:
             raise TypeError(name + " must be an integer")
