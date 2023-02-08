@@ -11,6 +11,7 @@ class BaseGeometry():
     an Empty class
     """
     pass
+
     def area(self):
         """
         public instance method that calculates
