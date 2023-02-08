@@ -6,18 +6,16 @@ Created on Wed Feb 8, 2023
 """
 
 
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
-BaseGeometry = __import__('7-rectangle').BaseGeometry
 
-
-class Retangle(BaseGeometry):
+class Rectangle(BaseGeometry):
     """
-    A Rectangle class that inherits from BaseGeometry
+    A Rectangle class shape, inheirts from BaseGeometry
     """
     def __init__(self, width, height):
         """
-        init function for rectangle
-
+        init function for Rectangle
         Attributes:
             width (int): the width of the rectangle
             height (int): the height of the rectangle
