@@ -6,9 +6,7 @@ Created on Wed Feb 8, 2023
 """
 
 
-
 Basegeometry = __import__('7-base_geometry').BaseGeometry
-
 
 
 class Rectangle(BaseGeometry):
