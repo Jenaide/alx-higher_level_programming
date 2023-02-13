@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
+
 @author: Jenaide Sibolie
+
 """
 import json
 
@@ -80,7 +82,7 @@ class Base:
     @classmethod
     def create(cls, **dictionary):
         """
-        returns an instance with ll attributes already set.
+        returns an instance with ll attributes already set
 
         Attr:
             dictionary (dict): outdated dictionary
