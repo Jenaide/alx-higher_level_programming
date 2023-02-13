@@ -3,6 +3,7 @@
 @author: Jenaide Sibolie
 """
 import json
+import os
 
 
 class Base:
@@ -12,6 +13,7 @@ class Base:
     Attributes:
         _nb_objects (int): Private class attribute
     """
+
     __nb_objects = 0
 
     def __init__(self, id=None):
@@ -104,9 +106,13 @@ class Base:
             A list of instances
         """
         file_name = str(cls.__name__) + ".json"
-        try:
-            with open(filename, "r") as jsonfile:
-                list_dicts = Base.from_json_string(jsonfile.read())
-                return [cls.create(**d) for d in list_dicts]
-        except IOError:
-            return []
+        list_of_instances = []
+        list_dictionaries = []
+
+        if os.path.exists(file_name):
+            with open(file_name, 'r') as my_file:
+                my_str = my_file.read()
+                list_dictionaries = cls.from_json_string(my_str)
+                for dictionary in list_dictionaries:
+                    list_of_instances.append(cls.create(**dictionary))
+        return list_of_instances
