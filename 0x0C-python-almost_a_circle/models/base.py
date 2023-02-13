@@ -22,7 +22,7 @@ class Base:
         Atrributes:
             id (int): An integer input for id
         """
-        if id == None:
+        if id is None:
             Base.__nb_objects += 1
             self.id = Base.__nb_objects
         else:
