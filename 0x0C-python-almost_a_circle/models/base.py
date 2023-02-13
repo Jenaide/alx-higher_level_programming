@@ -25,10 +25,10 @@ class Base:
             id (int): An integer input for id
         """
         if id is not None:
-            Base.__nb_objects += 1
-            self.id = Base.__nb_objects
-        else:
             self.id = id
+        else:
+            Base.__nd_objects += 1
+            self.id = Base.__nb_objects
 
     @staticmethod
     def to_json_string(list_dictionaries):
@@ -42,7 +42,7 @@ class Base:
             JSON string representation
         """
         if list_dictionaries is None or list_dictionaries == []:
-            return '[]'
+            return "[]"
         return json.dumps(list_dictionaries)
 
     @classmethod
