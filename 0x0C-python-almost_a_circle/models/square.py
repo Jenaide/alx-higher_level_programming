@@ -19,7 +19,11 @@ class Square(Retangle):
             size (int): size of the square
         """
         super().__init__(size, size, x, y, id)
-        self.size = size
+
+    @property
+    def size(self):
+        """Get/set the size of the Square."""
+        return self.width
 
     @size.setter
     def size(self, value):
@@ -73,16 +77,15 @@ class Square(Retangle):
         Return:
            A dictionary representation
         """
-        return {'x': self.x, 'y': self.y, 'id': self.id, 'height': self.height,
-                'width': self.width}
+        return {
+            'x': self.x,
+            'y': self.y,
+            'id': self.id,
+            'height': self.height,
+            'width': self.width
+        }
 
-
-if __name__ == "__main__":
-
-    r1 = Rectangle(10, 7, 2, 8)
-    dictionary = r1.to_dictionary()
-    json_dictionary = Base.to_json_string([dictionary])
-    print(dictionary)
-    print(type(dictionary))
-    print(json_dictionary)
-    print(type(json_dictionary))
+    def __str__(self):
+        """Return the print() and str() representation of a Square."""
+        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
+                                                 self.width)

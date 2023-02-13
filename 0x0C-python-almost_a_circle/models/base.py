@@ -24,7 +24,7 @@ class Base:
         Atrributes:
             id (int): An integer input for id
         """
-        if id is None:
+        if id is not None:
             Base.__nb_objects += 1
             self.id = Base.__nb_objects
         else:
@@ -41,7 +41,7 @@ class Base:
         Return:
             JSON string representation
         """
-        if list_dictionaries is None or not list_dictionaries:
+        if list_dictionaries is None or list_dictionaries == []:
             return '[]'
         return json.dumps(list_dictionaries)
 
@@ -57,12 +57,12 @@ class Base:
             json obj to be save in a file.
         """
         file_name = cls.__name__ + ".json"
-        string = []
-        if list_objs is not None:
-            for i in list_objs:
-                string.append(cls.to_dictionary(i))
-        with open(file_name, 'w', encoding='utf-8') as file:
-            file.write(cls.to_json_string(string))
+        with open(filename, "w") as jsonfile:
+            if list_objs is None:
+                jsonfile.write("[]")
+            else:
+                list_dicts = [o.to_dictionary() for o in list_objs]
+                jsonfile.write(Base.to_json_string(list_dicts))
 
     @staticmethod
     def from_json_string(json_string):
@@ -75,7 +75,7 @@ class Base:
         Return:
             json object to dictionary
         """
-        if json_string is None or len(json_string) == 0:
+        if json_string is None or json_string == "[]":
             return []
         return json.loads(json_string)
 
@@ -90,12 +90,13 @@ class Base:
         Return:
            an instance with all attributes already set
         """
-        if cls.__name__ == "Retangle":
-            dummy = cls(1, 1)
-        if cls.__name__ == "Square":
-            dummy = cls(1)
-        dummy.update(**dictionary)
-        return dummy
+        if dictionary and dictionary != {}:
+            if cls.__name__ == "Retangle":
+                dummy = cls(1, 1)
+            else:
+                dummy = cls(1)
+            dummy.update(**dictionary)
+            return dummy
 
     @classmethod
     def load_from_file(cls):
@@ -105,13 +106,10 @@ class Base:
         Return:
             A list of instances
         """
-        file_name = cls.__name__ + ".json"
-        json_obj = []
+        file_name = str(cls.__name__) + ".json"
         try:
-            with open(filename, 'r', encoding='utf-8') as file:
-                json_obj = cls.from_json_string(file.read())
-            for key, value in enumerate(json_obj):
-                json_obj[key] = cls.create(**json_obj[key])
-        except:
-            pass
-        return json_obj
+            with open(filename, "r") as jsonfile:
+                list_dicts = Base.from_json_string(jsonfile.read())
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
+            return []
