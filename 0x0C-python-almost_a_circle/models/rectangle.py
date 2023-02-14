@@ -156,3 +156,12 @@ class Rectangle(Base):
         elif value < 0:
             raise ValueError('y must be >= 0')
         self.__y = value
+
+    def to_dictionary(self):
+        """
+        Creates a dictionary representation for Rectangle attributes
+        Return:
+            A dictionary representation
+        """
+        return {'x': self.x, 'y': self.y, 'id': self.id, 'height': self.height,
+                'width': self.width}
