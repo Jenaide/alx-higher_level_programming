@@ -3,116 +3,113 @@
 @author: Jenaide Sibolie
 """
 import json
-import os
 
 
 class Base:
     """
     Base class
-    
+
     Attributes:
-        _nb_objects (int): Private class attribute
+        nb_objects (int): Private class attribute
     """
 
     __nb_objects = 0
 
     def __init__(self, id=None):
         """
-        class constructor
+        Class constructor
 
-        Atrributes:
+        Attributes:
             id (int): An integer input for id
         """
-        if id is not None:
-            self.id = id
-        else:
-            Base.__nd_objects += 1
+        if id is None:
+            Base.__nb_objects += 1
             self.id = Base.__nb_objects
+        else:
+            self.id = id
 
     @staticmethod
     def to_json_string(list_dictionaries):
         """
-        creates a json string representation for base class
+        Returns a json string representation
 
-        Attr:
-           list_dictionaries (json):a json list of dictionaries
+        Attributes:
+            list_dictionaries (json): An inputted jason list of dictionaries
 
         Return:
-            JSON string representation
+            A json representation
         """
-        if list_dictionaries is None or list_dictionaries == []:
-            return "[]"
+        if list_dictionaries is None or not list_dictionaries:
+            return '[]'
         return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
         """
-        writes a json string representation of list_objs to a file.
+        Writes the json string representation list object to a file
 
-        Attr:
-           list_objs (list): obj list to be saved
+        Attribute:
+            list_objs (list): object list to save
 
         Return:
-            json obj to be save in a file.
+            json object to save in file
         """
         file_name = cls.__name__ + ".json"
-        with open(filename, "w") as jsonfile:
-            if list_objs is None:
-                jsonfile.write("[]")
-            else:
-                list_dicts = [o.to_dictionary() for o in list_objs]
-                jsonfile.write(Base.to_json_string(list_dicts))
+        string = []
+        if list_objs is not None:
+            for i in list_objs:
+                string.append(cls.to_dictionary(i))
+        with open(file_name, 'w', encoding='utf-8') as file:
+            file.write(cls.to_json_string(string))
 
     @staticmethod
     def from_json_string(json_string):
         """
-        returns a list of a json string representation
+        Returns the list of json string representation
 
-        Attr:
-           json_string (string): json obj
+        Attribute:
+            json_string (string): json object
 
         Return:
             json object to dictionary
         """
-        if json_string is None or json_string == "[]":
+        if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
         """
-        returns an instance with ll attributes already set
+        Returns an instance with all attributes already set
 
-        Attr:
-            dictionary (dict): outdated dictionary
+        Attribute:
+            dictionary (dict): inooutted dictionary
 
         Return:
-           an instance with all attributes already set
+            An instance with all attributes already set
         """
-        if dictionary and dictionary != {}:
-            if cls.__name__ == "Retangle":
-                dummy = cls(1, 1)
-            else:
-                dummy = cls(1)
-            dummy.update(**dictionary)
-            return dummy
+        if cls.__name__ == "Rectangle":
+            dummy = cls(1, 1)
+        if cls.__name__ == "Square":
+            dummy = cls(1)
+        dummy.update(**dictionary)
+        return dummy
 
     @classmethod
     def load_from_file(cls):
         """
-        returns a list of instances
+        Returns a list of instances
 
         Return:
             A list of instances
         """
-        file_name = str(cls.__name__) + ".json"
-        list_of_instances = []
-        list_dictionaries = []
-
-        if os.path.exists(file_name):
-            with open(file_name, 'r') as my_file:
-                my_str = my_file.read()
-                list_dictionaries = cls.from_json_string(my_str)
-                for dictionary in list_dictionaries:
-                    list_of_instances.append(cls.create(**dictionary))
-        return list_of_instances
+        file_name = cls.__name__ + ".json"
+        json_obj = []
+        try:
+            with open(file_name, 'r', encoding='utf-8') as file:
+                json_obj = cls.from_json_string(file.read())
+            for key, value in enumerate(json_obj):
+                json_obj[key] = cls.create(**json_obj[key])
+        except:
+            pass
+        return json_obj

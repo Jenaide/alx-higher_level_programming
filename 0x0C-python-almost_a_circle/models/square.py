@@ -4,35 +4,40 @@
 Created on Mon Feb 12, 2023
 @author: Jenaide Sibolie
 """
-from models.rectangle import Retangle
+from models.rectangle import Rectangle
 
 
-class Square(Retangle):
+class Square(Rectangle):
     """
-    a square class that inherits from retangle class.
+    Class Square that inherits from Rectangle
     """
     def __init__(self, size, x=0, y=0, id=None):
         """
-        class constructor for Square
+        Class Constructor for Square
 
-        Attr:
-            size (int): size of the square
+        Attribute:
+            size (int): The size of the square
         """
         super().__init__(size, size, x, y, id)
+        self.size = size
 
     @property
     def size(self):
-        """Get/set the size of the Square."""
+        """
+        Property method for size value
+
+        Return:
+            Private value size value
+        """
         return self.width
 
     @size.setter
     def size(self, value):
         """
-        setter method for the size value
+        setter method for size value
 
-        Attr:
-            value (int): value that checks if it is an int and greater
-            than 0.
+        Attribute:
+            value (int): value to check if is int and gratter than 0
         """
         if type(value) != int:
             raise TypeError('width must be an integer')
@@ -40,24 +45,35 @@ class Square(Retangle):
             raise ValueError('width must be > 0')
         self.width = value
 
+    def __str__(self):
+        """
+        str method for class Square
+
+        Return:
+            The string: [class_name] (id) x/y - size
+        """
+        string = "[{}] ({}) {}/{} - {}".format(self.__class__.__name__,
+                                               self.id, self.x, self.y,
+                                               self.size)
+        return string
+
     def update(self, *args, **kwargs):
         """
         Updates Square class
-
-        Attr:
-            args (list): input arguments that updates rectangle class
-            kwargs (dict): input arguments that updates rectangle class
+        Attribute:
+            args (list): inputted arguments to updating rectangle class
+            kwargs (dict): inputted arguments tu updating rectangle class
         """
         if args is not None and len(args) != 0:
-            for i, ar in enumerate(args):
+            for i, arg in enumerate(args):
                 if i == 0:
-                    self.id = ar
+                    self.id = arg
                 elif i == 1:
-                    self.size = ar
+                    self.size = arg
                 elif i == 2:
-                    self.x = ar
+                    self.x = arg
                 elif i == 3:
-                    self.y = ar
+                    self.y = arg
 
         elif kwargs is not None and len(kwargs) != 0:
             for (key, value) in kwargs.items():
@@ -72,20 +88,9 @@ class Square(Retangle):
 
     def to_dictionary(self):
         """
-        Creates a dictionary representation for Square attributes.
+        Creates a dictionary representation for Square attributes
 
         Return:
-           A dictionary representation
+            A dictionary representation
         """
-        return {
-            'x': self.x,
-            'y': self.y,
-            'id': self.id,
-            'height': self.height,
-            'width': self.width
-        }
-
-    def __str__(self):
-        """Return the print() and str() representation of a Square."""
-        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
-                                                 self.width)
+        return {'id': self.id, 'x': self.x, 'size': self.size, 'y': self.y}
