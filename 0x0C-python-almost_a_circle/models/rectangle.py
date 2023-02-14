@@ -76,6 +76,39 @@ class Rectangle(Base):
             raise ValueError('height must be > 0')
         self.__height = value
 
+    def area(self):
+        """
+        Calculates the area of the rectangle
+
+        Returns:
+            The area of the rectangle
+        """
+        return self.width * self.height
+
+    def display(self):
+        """
+        Prints the # char Rectangle
+        """
+        for i in range(self.y):
+            print()
+        for i in range(self.height):
+            for j in range(self.x):
+                print(' ', end='')
+            for j in range(self.width):
+                print('#', end='')
+            print()
+
+    def __str__(self):
+        """
+        str method for class Rectangle
+
+        Return:
+            The string: [class_name] (id) x/y - width/height
+        """
+        string = "[{}] ({}) {}/{} - {}/{}".format(self.__class__.__name__,
+                                                  self.id, self.x, self.y,
+                                                  self.width, self.height)
+
     @property
     def x(self):
         """
