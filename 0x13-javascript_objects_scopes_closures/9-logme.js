@@ -1,5 +1,5 @@
 #!/usr/bin/node
-exports.logMe = function (item)
+exports.logMe = function logMe (item) {
   if (!logMe.counter) {
     logMe.counter = 0;
   }
