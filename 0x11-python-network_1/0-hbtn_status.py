@@ -6,6 +6,7 @@ Created by Jenaide Sibolie
 from urllib.request import urlopen
 
 
+
 if __name__ == "__main__":
     url = 'https://intranet.hbtn.io/status'
     with urlopen(url) as response:
