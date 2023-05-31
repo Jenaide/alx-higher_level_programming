@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const $ = window.$;
 
 $('DIV#add_item').click(function() {

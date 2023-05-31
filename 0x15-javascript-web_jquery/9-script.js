@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const $ = window.$;
 const url = 'https://fourtonfish.com/hellosalut/?lang=fr';
 
